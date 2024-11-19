@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../RucheConnectee"
+		},
+		{
+			"name": "arduino-focuser-master",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
