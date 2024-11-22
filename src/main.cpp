@@ -26,6 +26,8 @@
 #include "Config.h"
 #include "DRV8825.h"
 #include "moonlite.h"
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 #define DRIVER_DISCONNECTED_MILLIS (30 * 1000)
 #define EEPROM_MARKER 'F'
@@ -43,6 +45,9 @@ bool holdEnabled = false;
 
 /* Timestamp (micros()) of last received serial traffic */
 unsigned long lastSerialReceived = 0;
+
+/* Manual mode with button */
+bool isInManualMode = false;
 
 /* Settings data in EEPROM */
 struct Settings {
@@ -92,6 +97,18 @@ volatile int interruptCounter = 0;
 /* Flag for requesting settings to be saved; used in interrupt handler */
 volatile bool needToSaveSettings = false;
 
+volatile bool tempSensorPresent = false;
+
+#ifdef TEMP_SENSOR
+// temperature
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
+int prevTemp = 0;
+#endif
+
+uint32_t chrono = 0;
+uint32_t periodeMaJ = 5000;
+
 void motorInterrupt();
 
 void loadSettings() {
@@ -130,6 +147,25 @@ void saveSettings() {
 
 void setup() {
 	loadSettings();
+
+	#ifdef TEMP_SENSOR
+	// init temperature sensor
+	sensors.begin();
+	if (sensors.getDeviceCount() != 0) {
+		tempSensorPresent = true;
+		sensors.setResolution(9);
+		sensors.setWaitForConversion(false);
+		sensors.requestTemperatures();
+  	}
+
+	#endif
+
+	#ifdef MANUAL_BUTTONS
+	// setup buttons
+	pinMode(PIN_UP_IN, INPUT_PULLUP);
+	pinMode(PIN_DOWN_OUT, INPUT_PULLUP);
+	pinMode(BTN_POTI_SPEED, INPUT_PULLUP);
+	#endif
 
 	newPosition = currentPosition;
 	clearBuffer(serialBuffer, 8);
@@ -298,7 +334,25 @@ void handleSerial() {
 				break;
 			case get_temperature:
 				/* TODO: Get temperature */
+				#ifdef TEMP_SENSOR
+				if (tempSensorPresent) {
+					char tempString[2];
+					int currentTemp = prevTemp;
+					if (sensors.isConversionComplete() && (millis() - chrono >= periodeMaJ)) {
+						currentTemp = sensors.getTempCByIndex(0);
+						prevTemp = currentTemp;
+						sensors.requestTemperatures();
+						chrono = millis();
+					}
+					sprintf(tempString, "%02X", currentTemp * 2);
+					Serial.print(tempString);
+					Serial.print("#");
+				} else {
+					Serial.print("0000#");	
+				}
+				#else
 				Serial.print("0000#");
+				#endif
 				break;
 			case set_hold_enabled:
 				holdEnabled = true;
@@ -331,7 +385,30 @@ void loop() {
 		saveSettings();
 		needToSaveSettings = false;
 	}
-
-	disableStepperIfNoSerialTraffic();
+	#ifdef MANUAL_BUTTONS
+	// handle manual button
+	
+	if (!isMoving) {
+		int btn_in = digitalRead(PIN_UP_IN);
+		int btn_out = digitalRead(PIN_DOWN_OUT);
+		if (btn_in == LOW || btn_out == LOW) {
+			isInManualMode = true;
+		} else {
+			isInManualMode = false;
+		}
+		if (btn_in == LOW && (currentPosition + NB_STEPS) < 65535) {
+			newPosition = currentPosition + NB_STEPS;
+			isMoving = true;
+		} else if (btn_out == LOW && (currentPosition - NB_STEPS) > 0) {
+			newPosition = currentPosition - NB_STEPS;
+			isMoving = true;
+		} else {
+			isInManualMode = false;
+		}
+	}
+	#endif
+	if (!isInManualMode) {
+		disableStepperIfNoSerialTraffic();
+	}
 	handleSerial();
 }

@@ -37,4 +37,24 @@
 /* Microstepping for Moonlite "full" mode */
 #define MICROSTEPS_FULL 8
 
+#define MANUAL_BUTTONS
+
+#ifdef MANUAL_BUTTONS
+/* Arduino pin mapping for manual button and speed control */
+#define PIN_UP_IN 12
+#define PIN_DOWN_OUT 11
+#define BTN_POTI_SPEED A0
+#define BTN_MIN_SPEED 8
+#define BTN_MAX_SPEED 512
+#define BTN_ACCEL_FACTOR 1.05f
+#define NB_STEPS 1
+#endif
+
+#define TEMP_SENSOR
+
+#ifdef TEMP_SENSOR
+/* Arduino pin mapping for DS18B20 Temeratur sensor */
+#define ONE_WIRE_BUS 10
+#endif
+
 #endif
