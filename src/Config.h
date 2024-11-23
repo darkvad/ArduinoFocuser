@@ -44,10 +44,10 @@
 #define PIN_UP_IN 12
 #define PIN_DOWN_OUT 11
 #define BTN_POTI_SPEED A0
-#define BTN_MIN_SPEED 8
-#define BTN_MAX_SPEED 512
+#define BTN_MIN_SPEED 32
+#define BTN_MAX_SPEED 2
 #define BTN_ACCEL_FACTOR 1.05f
-#define NB_STEPS 1
+#define NB_STEPS 10
 #endif
 
 #define TEMP_SENSOR

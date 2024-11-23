@@ -85,6 +85,8 @@ The actual delay is delayMultiplier * 500us.
 */
 volatile uint8_t delayMultiplier = 2;
 
+volatile uint8_t tmpSpeed = 32;
+
 /* Is the focuser currently moving? */
 volatile bool isMoving = false;
 
@@ -131,6 +133,26 @@ void loadSettings() {
 	}
 }
 
+int readButtonSpeed()
+{
+	//return analogRead(BTN_POTI_SPEED);
+  // analogRead 0 -> min speed, 1023 -> max speed so if there is nothing connected
+  // the motor will accelerate to max speed
+  uint16_t speedVal = map(analogRead(BTN_POTI_SPEED), 0, 1023, BTN_MIN_SPEED, BTN_MAX_SPEED);
+  if (speedVal < 4) {
+	return 2;
+  } else if (speedVal < 7) {
+	return 4;
+  } else if (speedVal < 14) {
+	return 8;
+  } else if (speedVal < 22) {
+	return 16;
+  } else {
+	return 32;
+  }
+
+}
+
 void saveSettings() {
 	settings.currentPosition = currentPosition;
 	settings.delayMultiplier = delayMultiplier;
@@ -166,6 +188,8 @@ void setup() {
 	pinMode(PIN_DOWN_OUT, INPUT_PULLUP);
 	pinMode(BTN_POTI_SPEED, INPUT_PULLUP);
 	#endif
+	// Save speed in case we never use manual button
+	tmpSpeed = delayMultiplier;
 
 	newPosition = currentPosition;
 	clearBuffer(serialBuffer, 8);
@@ -387,23 +411,29 @@ void loop() {
 	}
 	#ifdef MANUAL_BUTTONS
 	// handle manual button
-	
 	if (!isMoving) {
 		int btn_in = digitalRead(PIN_UP_IN);
 		int btn_out = digitalRead(PIN_DOWN_OUT);
 		if (btn_in == LOW || btn_out == LOW) {
 			isInManualMode = true;
+    		// save current speed settings
+		    //tmpSpeed = delayMultiplier;
+    		delayMultiplier = readButtonSpeed();
 		} else {
 			isInManualMode = false;
+			// restore speed
+			delayMultiplier = settings.delayMultiplier;
 		}
-		if (btn_in == LOW && (currentPosition + NB_STEPS) < 65535) {
+		if (btn_in == LOW && (currentPosition + NB_STEPS) < 65536 - NB_STEPS) {
 			newPosition = currentPosition + NB_STEPS;
 			isMoving = true;
-		} else if (btn_out == LOW && (currentPosition - NB_STEPS) > 0) {
+		} else if (btn_out == LOW && (currentPosition - NB_STEPS) > 0 + NB_STEPS) {
 			newPosition = currentPosition - NB_STEPS;
 			isMoving = true;
 		} else {
 			isInManualMode = false;
+			// restore speed
+			delayMultiplier = settings.delayMultiplier;
 		}
 	}
 	#endif
