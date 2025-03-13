@@ -5,6 +5,21 @@ This project was made by merging two existing projects and some fixes and additi
 The main project from which it is forked is https://github.com/vehnae/arduino-focuser (you will find the original readme at the end of this one)
 I take inspiraton from this other project https://github.com/fehlfarbe/arduino-motorfocus in order to add button, speed control, ... who were missing in the first one.
 
+Schematics and PCB
+==================
+![Schematic_AduinoFocuser_2025-03-13](https://github.com/user-attachments/assets/93ae13da-de9a-4ada-832f-a5e5766c8caf)
+
+![PCB_PCB_AduinoFocuser_2025-03-13](https://github.com/user-attachments/assets/a2e8e61d-a2ec-4294-aa1d-167a03e866d1)
+
+![focuser2D](https://github.com/user-attachments/assets/fb0572a7-2c08-4f53-a2cf-47d2a6e20bac)
+
+![focuser3D](https://github.com/user-attachments/assets/ff7312c3-7a0d-4195-a551-0f0fdea0850a)
+
+Part list
+=========
+The links are given for reference, feel free to order where you want
+
+
 
 Here is the original Readme
 ============================
