@@ -1,6 +1,10 @@
 Arduino-based Telescope Focuser
 ===============================
 
+This project was made by merging two existing projects and some fixes and addition.
+
+Here is the original Readme
+============================
 This sketch implements telescope focuser controller logic for a stepper motor and a Pololu DRV8825 stepper driver board. The serial protocol is compatible with Moonlite focusers, so their ASCOM drivers and supporting software can be used.
 
 Main features:
