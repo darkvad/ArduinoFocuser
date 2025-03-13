@@ -34,6 +34,22 @@ The links are given for reference, feel free to order where you want
 
 option : 1 temperature sensor DS18B20, ideally external, ie : https://fr.aliexpress.com/item/32305869288.html
 
+Assembly instructions
+=====================
+
+Warning : Before anything, look at these two links for setting the current limitation of the DRV8825 to fit the max current of your motor
+http://gilles.thebault.free.fr/spip.php?article29
+https://wiki.mchobby.be/index.php?title=DRV8825
+
+Then, as the PCB is low cost , the copper if fine and therefore could not transport the current from the motor power source (12v) and to the motor. When I fist test with everything usiing pcb wire, afetr a while some tracks didn't support the current ...
+So follow the images below for this part od the assembly and connection of the DRV8825 (use a support, it is easier)
+
+![IMG_20241219_120226](https://github.com/user-attachments/assets/76003a20-53e0-4eb2-97b1-1f1cc24d9f96)
+
+![IMG_20241219_120241](https://github.com/user-attachments/assets/4f1a49df-bb1c-450b-acf7-0ee71d380a95)
+
+![IMG_20241219_121114](https://github.com/user-attachments/assets/e1004fa2-33e5-4e8c-8db1-aa3272ec4e18)
+
 
 Here is the original Readme
 ============================
