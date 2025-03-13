@@ -2,6 +2,9 @@ Arduino-based Telescope Focuser
 ===============================
 
 This project was made by merging two existing projects and some fixes and addition.
+The main project from which it is forked is https://github.com/vehnae/arduino-focuser (you will find the original readme at the end of this one)
+I take inspiraton from this other project https://github.com/fehlfarbe/arduino-motorfocus in order to add button, speed control, ... who were missing in the first one.
+
 
 Here is the original Readme
 ============================
