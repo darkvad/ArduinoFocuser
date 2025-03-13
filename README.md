@@ -20,10 +20,17 @@ Part list
 The links are given for reference, feel free to order where you want
 
 1 Arduino nano V3 : https://fr.aliexpress.com/item/1005007539665675.html
+
 1 motor driver DRV8825 : https://fr.aliexpress.com/item/1005006478108991.html choose the DRV8825
+
+1 Nema 17 motor
+
 2 mini push switches : https://fr.aliexpress.com/item/1005006713190412.html
+
 1 10 microFarad capacitor to solder between RST and GND of the arduino nano (forgot it on the pcb, so add it) . This is for ascom to properly connect https://www.astroscopic.com/blog/disable-arduinos-auto-reset-connection
+
 1 4,7 kOhm resistor
+
 
 option : 1 temperature sensor DS18B20, ideally external, ie : https://fr.aliexpress.com/item/32305869288.html
 
