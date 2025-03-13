@@ -23,7 +23,7 @@ The links are given for reference, feel free to order where you want
 
 1 motor driver DRV8825 : https://fr.aliexpress.com/item/1005006478108991.html choose the DRV8825
 
-1 Nema 17 motor
+1 Nema 17 motor : https://fr.aliexpress.com/item/1005005281739306.html
 
 2 mini push switches : https://fr.aliexpress.com/item/1005006713190412.html
 
