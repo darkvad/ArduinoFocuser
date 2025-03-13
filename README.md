@@ -39,6 +39,7 @@ Assembly instructions
 
 Warning : Before anything, look at these two links for setting the current limitation of the DRV8825 to fit the max current of your motor
 http://gilles.thebault.free.fr/spip.php?article29
+
 https://wiki.mchobby.be/index.php?title=DRV8825
 
 Then, as the PCB is low cost , the copper if fine and therefore could not transport the current from the motor power source (12v) and to the motor. When I fist test with everything usiing pcb wire, afetr a while some tracks didn't support the current ...
