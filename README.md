@@ -1,6 +1,59 @@
 Arduino-based Telescope Focuser
 ===============================
 
+This project was made by merging two existing projects and some fixes and addition.
+The main project from which it is forked is https://github.com/vehnae/arduino-focuser (you will find the original readme at the end of this one)
+I take inspiraton from this other project https://github.com/fehlfarbe/arduino-motorfocus in order to add button, speed control, ... who were missing in the first one.
+
+Schematics and PCB
+==================
+![Schematic_AduinoFocuser_2025-03-13](https://github.com/user-attachments/assets/93ae13da-de9a-4ada-832f-a5e5766c8caf)
+
+![PCB_PCB_AduinoFocuser_2025-03-13](https://github.com/user-attachments/assets/a2e8e61d-a2ec-4294-aa1d-167a03e866d1)
+
+![focuser2D](https://github.com/user-attachments/assets/fb0572a7-2c08-4f53-a2cf-47d2a6e20bac)
+
+![focuser3D](https://github.com/user-attachments/assets/ff7312c3-7a0d-4195-a551-0f0fdea0850a)
+
+Part list
+=========
+The links are given for reference, feel free to order where you want
+
+1 Arduino nano V3 : https://fr.aliexpress.com/item/1005007539665675.html
+
+1 motor driver DRV8825 : https://fr.aliexpress.com/item/1005006478108991.html choose the DRV8825
+
+1 Nema 17 motor : https://fr.aliexpress.com/item/1005005281739306.html
+
+2 mini push switches : https://fr.aliexpress.com/item/1005006713190412.html
+
+1 10 microFarad capacitor to solder between RST and GND of the arduino nano (forgot it on the pcb, so add it) . This is for ascom to properly connect https://www.astroscopic.com/blog/disable-arduinos-auto-reset-connection
+
+1 4,7 kOhm resistor
+
+
+option : 1 temperature sensor DS18B20, ideally external, ie : https://fr.aliexpress.com/item/32305869288.html
+
+Assembly instructions
+=====================
+
+Warning : Before anything, look at these two links for setting the current limitation of the DRV8825 to fit the max current of your motor
+http://gilles.thebault.free.fr/spip.php?article29
+
+https://wiki.mchobby.be/index.php?title=DRV8825
+
+Then, as the PCB is low cost , the copper if fine and therefore could not transport the current from the motor power source (12v) and to the motor. When I fist test with everything usiing pcb wire, afetr a while some tracks didn't support the current ...
+So follow the images below for this part od the assembly and connection of the DRV8825 (use a support, it is easier)
+
+![IMG_20241219_120226](https://github.com/user-attachments/assets/76003a20-53e0-4eb2-97b1-1f1cc24d9f96)
+
+![IMG_20241219_120241](https://github.com/user-attachments/assets/4f1a49df-bb1c-450b-acf7-0ee71d380a95)
+
+![IMG_20241219_121114](https://github.com/user-attachments/assets/e1004fa2-33e5-4e8c-8db1-aa3272ec4e18)
+
+
+Here is the original Readme
+============================
 This sketch implements telescope focuser controller logic for a stepper motor and a Pololu DRV8825 stepper driver board. The serial protocol is compatible with Moonlite focusers, so their ASCOM drivers and supporting software can be used.
 
 Main features:
