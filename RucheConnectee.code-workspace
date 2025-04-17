@@ -6,6 +6,9 @@
 		{
 			"name": "arduino-focuser-master",
 			"path": "."
+		},
+		{
+			"path": "../AntiBuee"
 		}
 	],
 	"settings": {}

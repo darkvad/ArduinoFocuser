@@ -1,0 +1,4 @@
+EEPROM
+paulstoffregen/OneWire@^2.3.8
+TimerOne
+milesburton/DallasTemperature@^3.11.0
