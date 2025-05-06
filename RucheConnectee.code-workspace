@@ -9,6 +9,10 @@
 		},
 		{
 			"path": "../AntiBuee"
+		},
+		{
+			"name": "TestDriverTMC",
+			"path": "../TestDriverTMC"
 		}
 	],
 	"settings": {}
