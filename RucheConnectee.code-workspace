@@ -13,6 +13,14 @@
 		{
 			"name": "TestDriverTMC",
 			"path": "../TestDriverTMC"
+		},
+		{
+			"name": "LoraRangeTest",
+			"path": "../LoraRangeTest"
+		},
+		{
+			"name": "LMIC-node",
+			"path": "../LMIC-node"
 		}
 	],
 	"settings": {}
